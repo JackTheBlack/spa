@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function LogForm() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function LogForm() {
     if (data.succes) {
       console.log("encontrado");
       console.log(data.data[0]);
+      Cookies.set("token", data.data[0].userName);
       router.push("/folders/" + data.data[0].userName);
     } else {
       console.log("no encotrado");

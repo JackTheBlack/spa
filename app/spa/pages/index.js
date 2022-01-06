@@ -34,10 +34,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.container}>
-        <div className="header">
-          {" "}
-          <Navbar />
-        </div>
+        <div className="header"></div>
 
         <Head>
           <title>Create Next App</title>
