@@ -1,0 +1,2 @@
+# spa
+SPA APPLICATION in Next JS
