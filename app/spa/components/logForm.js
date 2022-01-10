@@ -8,18 +8,25 @@ import Cookies from "js-cookie";
 
 export default function LogForm() {
   const router = useRouter();
+  const [succes, setSucces] = useState(true);
 
   const onFinish = async (values) => {
     let payload = { password: values.password, userName: values.username };
-    let res = await axios.post("http://localhost:3000/api/users", payload);
-    let data = res.data;
-    if (data.succes) {
+    try {
+      let res = await axios.post("http://localhost:3000/api/users", payload);
+      let data = res.data;
+
       console.log("encontrado");
-      console.log(data.data[0]);
+
       Cookies.set("token", data.data[0].userName);
-      router.push("/folders/" + data.data[0].userName);
-    } else {
-      console.log("no encotrado");
+      router.push({
+        pathname: "/folders/",
+        query: { username: data.data[0].userName },
+      });
+    } catch (e) {
+      setSucces(true);
+      console.log("fail");
+      setSucces(false);
     }
   };
   const onFinishFailed = () => {};
@@ -90,6 +97,12 @@ export default function LogForm() {
           </Button>
         </Form.Item>
       </Form>
+
+      {!succes ? (
+        <div>
+          <span> name or password is incorret. Please try again</span>
+        </div>
+      ) : null}
     </div>
   );
 }

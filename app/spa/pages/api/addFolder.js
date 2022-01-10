@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           folder: folder,
         });
 
-        res.status(201).json({ succes: true });
+        res.status(201).json({ succes: true, data: folder.data });
       } catch (error) {
         res.status(400).json({ succes: false });
       }
