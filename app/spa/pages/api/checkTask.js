@@ -1,6 +1,9 @@
-import dbConnect from "../../utils/dbConnection";
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import TASKS from "../..//models/Tasks";
+import dbConnect from "../../Backend/utils/dbConnection";
+
+import TASKS from "../../Backend/models/Tasks";
+import { updateCheckTaskService } from "../../Backend/service/taskService";
 
 dbConnect();
 
@@ -9,33 +12,13 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      try {
-        const tasks = await TASKS.find();
-        res.status(200).json({ succes: true, data: tasks.data });
-      } catch (error) {
-        res.status(400).json({ succes: false });
-      }
+      res.json("Update check Task");
       break;
     case "POST":
-      try {
-        console.log(req.body);
-        const { done, id } = req.body;
-        if (done) {
-          const tasks = await TASKS.updateOne(
-            { _id: id },
-            { $set: { done: true } }
-          );
-        } else {
-          const tasks = await TASKS1.updateOne(
-            { _id: id },
-            { $set: { done: false } }
-          );
-        }
-
-        res.status(201).json({ succes: true, data: tasks.data });
-      } catch (error) {
-        res.status(400).json({ succes: false });
-      }
+      const { done, id } = req.body;
+      console.log(req.body);
+      var data = await updateCheckTaskService(id, done);
+      res.json(data.data);
   }
 
   res.json({ name: "John Doe" });

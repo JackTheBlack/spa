@@ -10,18 +10,18 @@ export default function Folders() {
   const router = useRouter();
   const [newFolder, setNewFolder] = useState();
   const { username } = router.query;
-  console.log(username);
+  console.log(router.query);
   const [folders, setFolders] = useState([]);
 
   const logOut = () => {
     Cookies.remove("token");
     router.push("/");
   };
-  //
+
   const getFolders = async () => {
     try {
-      console.log(router.query);
       let payload = { user: username };
+      console.log(payload);
       let res = await axios.post("../api/folders", payload);
       let data = res.data;
       console.log(data);
@@ -57,8 +57,7 @@ export default function Folders() {
       try {
         let payload = { user: username, folder: newFolder };
         let res = await axios.post("../api/addFolder", payload);
-
-        console.log(data);
+        var data = res.data;
       } catch (e) {
         console.log("fallo");
         console.log(e);
@@ -69,7 +68,7 @@ export default function Folders() {
 
   const handleDelete = async (f, index) => {
     try {
-      let payload = { folder: f };
+      let payload = { folder: f, user: username };
       let res = await axios.post("../api/deleteFolder", payload);
       let data = res.data;
       console.log(data);
@@ -93,31 +92,32 @@ export default function Folders() {
               <th></th>
               <th> </th>
             </tr>
+            <tbody>
+              {folders.map((folder, index) => (
+                <tr key={index}>
+                  <td> {folder.folder} </td>
+                  <td>
+                    <button
+                      className="btn btn-link"
+                      onClick={() => handleDelete(folder.folder, index)}
+                    >
+                      {" "}
+                      Delete
+                    </button>{" "}
+                  </td>
 
-            {folders.map((folder, index) => (
-              <tr key={index}>
-                <td> {folder.folder} </td>
-                <td>
-                  <button
-                    className="btn btn-link"
-                    onClick={() => handleDelete(folder.folder, index)}
-                  >
+                  <td>
                     {" "}
-                    Delete
-                  </button>{" "}
-                </td>
-
-                <td>
-                  {" "}
-                  <button
-                    className="btn btn-link"
-                    onClick={() => handleOpen(folder.folder, index)}
-                  >
-                    Open
-                  </button>{" "}
-                </td>
-              </tr>
-            ))}
+                    <button
+                      className="btn btn-link"
+                      onClick={() => handleOpen(folder.folder, index)}
+                    >
+                      Open
+                    </button>{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
           <p>
             {" "}

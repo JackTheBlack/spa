@@ -87,7 +87,7 @@ export default function ToDoList() {
     setModalName(value);
     console.log(modalName);
   };
-
+  //
   const handleChecked = async (e, i, index) => {
     let checked = e.target.checked;
     var x = toDoList;

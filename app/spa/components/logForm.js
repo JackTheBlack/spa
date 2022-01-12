@@ -15,13 +15,13 @@ export default function LogForm() {
     try {
       let res = await axios.post("http://localhost:3000/api/users", payload);
       let data = res.data;
-
+      console.log(data);
       console.log("encontrado");
 
-      Cookies.set("token", data.data[0].userName);
+      Cookies.set("token", data.data.userName);
       router.push({
         pathname: "/folders/",
-        query: { username: data.data[0].userName },
+        query: { username: data.data.userName },
       });
     } catch (e) {
       setSucces(true);

@@ -1,36 +1,19 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-import dbConnect from "../../utils/dbConnection";
-
-import FOLDERS from "../../models/Folders";
-
-dbConnect();
+import folderService from "../../Backend/service/folderService";
 
 export default async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
     case "GET":
-      try {
-        const folder = await FOLDERS.find();
-        res.status(200).json({ succes: true, data: folder });
-      } catch (error) {
-        res.status(400).json({ succes: false });
-      }
+      res, json("get folders");
       break;
 
     case "POST":
-      try {
-        console.log(req.body);
-        const { user } = req.body;
-        const folder = await FOLDERS.find({
-          user: user,
-        });
-        console.log(folder);
-        res.status(201).json({ succes: true, data: folder });
-      } catch (error) {
-        res.status(400).json({ succes: false });
-      }
+      const { user } = req.body;
+      console.log(user);
+      var data = await folderService(user);
+      console.log(data);
+      res.json(data);
   }
 
   res.json({ name: "John Doe" });

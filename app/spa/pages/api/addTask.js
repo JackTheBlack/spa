@@ -1,6 +1,8 @@
-import dbConnect from "../../utils/dbConnection";
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import TASKS from "../..//models/Tasks";
+import dbConnect from "../../Backend/utils/dbConnection";
+
+import TASKS from "../../Backend/models/Tasks";
 
 dbConnect();
 
