@@ -15,18 +15,19 @@ export default async function taskService(user, folder) {
   }
 }
 
-export const addFolderService = async (user, folder, task) => {
+export const addTaskService = async (user, folder, task) => {
   try {
     console.log("estoy aqui");
-    const task = await TASKS.create({
+    const newTask = await TASKS.create({
       user: user,
       folder: folder,
       task: task,
       done: false,
     });
 
-    return { succes: true, data: task.data };
+    return { succes: true, data: newTask.data };
   } catch (error) {
+    console.log(error);
     return { succes: false };
   }
 };

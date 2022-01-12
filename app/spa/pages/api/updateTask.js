@@ -14,6 +14,4 @@ export default async function handler(req, res) {
       var data = await updateTaskService(id, task);
       res.json(data.data);
   }
-
-  res.json({ name: "John Doe" });
 }

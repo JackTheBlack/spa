@@ -1,38 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import dbConnect from "../../Backend/utils/dbConnection";
-
-import TASKS from "../../Backend/models/Tasks";
-
-dbConnect();
+import { addTaskService } from "../../Backend/service/taskService";
 
 export default async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
     case "GET":
-      try {
-        const tasks = await TASKS.find();
-        res.status(200).json({ succes: true, data: tasks });
-      } catch (error) {
-        res.status(400).json({ succes: false });
-      }
+      res.json("add task");
       break;
     case "POST":
-      try {
-        console.log(req.body);
-        const { user, folder, task } = req.body;
-        console.log("estoy aqui");
-        const tasks = await TASKS.create({
-          user: user,
-          folder: folder,
-          task: task,
-          done: false,
-        });
-        console.log(tasks);
-        res.status(201).json({ succes: true });
-      } catch (error) {
-        res.status(400).json({ succes: false });
-      }
+      console.log(req.body);
+      const { user, folder, task } = req.body;
+      var data = await addTaskService(user, folder, task);
+      res.json(data);
   }
 }

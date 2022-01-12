@@ -13,6 +13,4 @@ export default async function handler(req, res) {
       var data = await deleteFolderService(user, folder);
       res.json({ succes: true });
   }
-
-  res.json({ name: "John Doe" });
 }

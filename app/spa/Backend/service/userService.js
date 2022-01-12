@@ -13,6 +13,7 @@ export default async function userService(username, password) {
     // console.log(user[0]);
     return user[0];
   } catch (error) {
-    return error;
+    console.log(error);
+    return { service: false };
   }
 }
