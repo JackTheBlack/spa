@@ -1,5 +1,5 @@
 # spa
-SPA APPLICATION in Next JS
+SPA APPLICATION with Next JS
 
 user:nicolas
 password:1234
