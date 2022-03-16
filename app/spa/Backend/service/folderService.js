@@ -1,7 +1,7 @@
 import dbConnect from "../utils/dbConnection";
 
 import FOLDERS from "../models/Folders";
-import { deleteAllTaskService } from "./TaskService";
+import { deleteAllTaskService } from "./taskService";
 dbConnect();
 
 export default async function folderService(user) {
