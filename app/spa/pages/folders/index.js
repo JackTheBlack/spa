@@ -10,8 +10,10 @@ export default function Folders() {
   const router = useRouter();
   const [newFolder, setNewFolder] = useState();
   const { username } = router.query;
-  console.log(router.query);
+  console.log(" dfdf", router.query);
   const [folders, setFolders] = useState([]);
+  const [loaded,setLoaded]=useState(false);
+
 
   const logOut = () => {
     Cookies.remove("token");
@@ -20,8 +22,8 @@ export default function Folders() {
 
   const getFolders = async () => {
     try {
-      let payload = { user: username };
-      console.log(payload);
+      const payload = { user: username };
+     console.log("este es el payload ",payload);
       let res = await axios.post("../api/folders", payload);
       let data = res.data;
       console.log(data);
@@ -42,11 +44,19 @@ export default function Folders() {
   };
 
   useEffect(() => {
-    getFolders();
+   
+    if(!loaded){
+      getFolders();
+      if(username!==undefined){
+        setLoaded(true);
+      }
+  
+    }
+
     if (username === null) {
       route.push("/");
     }
-  }, []);
+  });
 
   const handleOnChange = (event) => {
     setNewFolder(event.target.value);
