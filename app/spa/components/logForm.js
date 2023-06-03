@@ -13,7 +13,7 @@ export default function LogForm() {
   const onFinish = async (values) => {
     let payload = { password: values.password, userName: values.username };
     try {
-      let res = await axios.post("http://localhost:3000/api/users", payload);
+      let res = await axios.post("https://spa-three-pi.vercel.app/api/users", payload);
       let data = res.data;
       console.log(data);
       console.log("encontrado");

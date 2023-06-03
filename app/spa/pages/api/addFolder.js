@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       res.json("get en folders");
+      console.log("hola")
       break;
     case "POST":
       const { user, folder } = req.body;

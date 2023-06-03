@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       res.json({ method: "get" });
+      
 
       break;
     case "POST":
